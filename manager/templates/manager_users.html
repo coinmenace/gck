@@ -1,0 +1,496 @@
+{% load static %}
+{% include "manager_includes.html" %}
+
+ 
+<body class="">
+    <section class="vbox">
+        <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+        <!-- nav -->
+     {% include "manager_nav.html" %}
+        <!-- / nav -->
+        </header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">
+                    <section class="vbox">
+                        <section class="w-f scrollable">
+                             <!-- nav -->
+                                    {% include "manager_sidebar.html" %}
+                                <!-- / nav -->
+                        </section>
+                        
+                    </section>
+                </aside>
+                <!-- /.aside -->
+                <section id="content">
+                    <section class="vbox">
+                        <section class="scrollable padder">
+                            <div class="m-b-md">
+                        <h3 class="m-b-none">Users</h3> </div>
+
+
+
+
+
+
+
+
+
+
+<section class="panel panel-default"> 
+<header class="panel-heading font-bold"> Create New User</header>
+
+ <div class="panel-body"> 
+    <form action="users/create" class="form-horizontal" method="post"> 
+    
+   <div class="form-group">
+     <label class="col-sm-2 control-label">Firstname</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="firstname" id="firstname" class="form-control" placeholder="firstname">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+         <div class="form-group">
+     <label class="col-sm-2 control-label">Lastname</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="lastname" id="lastname" class="form-control" placeholder="lastname">
+     </div>
+     </div>
+     
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Username</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="username" id="username" class="form-control" placeholder="username"> 
+     </div> 
+     </div> 
+     
+     <div class="line line-dashed b-b line-lg pull-in"></div> 
+     
+     <div class="form-group"> 
+     
+     <label class="col-lg-2 control-label">Password</label> 
+     <div class="col-lg-10"> 
+     <input type="password" name="password" id="password" class="form-control" placeholder="password"> 
+     </div> 
+     </div> 
+
+  <div class="line line-dashed b-b line-lg pull-in"></div> 
+
+<div class="form-group">
+     <label class="col-sm-2 control-label">Email</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="email" id="email" class="form-control" placeholder="email">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+
+   <div class="form-group">
+     <label class="col-sm-2 control-label">Telephone</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="telephone" id="telephone" class="form-control" placeholder="telephone">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+
+         <div class="form-group">
+     <label class="col-sm-2 control-label">Address</label>
+     <div class="col-sm-10">
+
+         <textarea name="address" id="address" class="form-control"></textarea>
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+          <div class="form-group">
+     <label class="col-sm-2 control-label">City</label>
+     <div class="col-sm-10">
+       <!-- <select name="city" id="city" class="form-control selectpicker with-ajax" data-live-search="true"></select>
+   -->
+          <input type="text" name="city" id="city" class="form-control citypicker" placeholder="city">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+          <div class="form-group">
+     <label class="col-sm-2 control-label">State</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="state" id="state" class="form-control" placeholder="state">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+
+         <div class="form-group">
+     <label class="col-sm-2 control-label">Country</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="country" id="country" class="form-control" placeholder="country">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+   
+
+{% csrf_token %}
+ <div class="form-group"> 
+      <div class="col-sm-4 col-sm-offset-2"> 
+      <button type="submit" class="btn btn-default">Cancel</button> 
+      <button type="submit" class="btn btn-primary">Save changes</button> 
+      
+      </div> 
+
+</form>
+</div>
+<!-- End panel -->
+</section>
+
+
+<section class="panel panel-default">
+                                <header class="panel-heading"> Users <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
+                                <div class="table-responsive">
+                                    <div id="toolbar">
+                                    </div>
+                                    <table class="table table-striped m-b-none" 
+                                     data-toggle="table"
+                                     data-pagination="true"
+                                    data-side-pagination="server"
+                                    data-toolbar="#toolbar"
+                                       data-search="true"
+                                       data-show-refresh="true"
+                                       data-show-export="true"
+                                       data-minimum-count-columns="2"
+                                       data-show-pagination-switch="true"
+                                       data-pagination="true"
+                                       data-id-field="id"
+                                        id="users">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="id" width="5%">ID</th>
+                                                <th data-field="username" width="7%">Username</th>
+                                                <th data-field="fullname" width="15%">Name</th>
+                                                <th data-field="email" width="7%">Email</th>
+                                                <th data-field="telephone" width="7%">Telephone</th>
+                                                <th data-formatter="isphoneverified" width="3%">Phone Verified</th>
+                                                <th data-formatter="isemailverified" width="3%">Email Verifieds</th>
+                                                
+                                                <th data-field="status" width="5%">Status</th>
+                                                <th data-field="createdate" width="20%">Create Date</th>
+                                                <th  data-formatter="displayEdit" width="35%"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+</section>
+
+
+                       
+                        </section>
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+                </section>
+    
+
+
+
+            </section>
+        </section>
+    </section>
+    <!-- Bootstrap -->
+    <!-- App -->
+      {% include "script.html" %}
+      <script>
+ 
+
+    var $admintable = $('#adminusers');
+    var $usertable = $('#users');
+	   
+    $(function () {
+	var number=0;
+
+
+
+
+        $usertable.on('page-change.bs.table', function (e, number, size) {
+            getUserData(number, size);
+        });
+        var options = $usertable.bootstrapTable('getOptions');
+        getUserData(options.pageNumber, options.pageSize);
+    });
+
+
+
+    function getUserData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('users/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $usertable.bootstrapTable('load', res);
+        });
+    }
+
+    function isphoneverified(value, row) {
+            if(row.isphoneverified=="0"){
+                data="<span><i class='fa fa-times'></i></span>" 
+            }else{
+                data="<span><i class='fa fa-check'></i></span>" 
+            }
+         return data;
+    }
+
+    function isemailverified(value, row) {
+ 
+          if(row.isemailverified=="0"){
+                data="<span><i class='fa fa-times'></i></span>" 
+            }else{
+                data="<span><i class='fa fa-check'></i></span>" 
+            }
+         return data;
+    }
+
+
+    function displayEdit(value, row) {
+
+         return "<div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>Action<span class='caret'></span></button><ul class='dropdown-menu' role='menu'><li><a href='#' onclick=editUser("+row.id+",'"+encodeURI(row.username)+"','"+encodeURI(row.email)+"','"+encodeURI(row.telephone)+"','"+encodeURI(row.address)+"','"+encodeURI(row.city)+"','"+encodeURI(row.state)+"','"+encodeURI(row.country)+"')>Edit</a> </li>"+
+         "<li><a href='#' onclick='deleteUser("+row.id+")'>Delete</a></li>"+
+         "<li><a href='#' onclick='resetUserDevice("+row.id+")'>Reset Device</a></li>"
+    "</ul></div>"
+    }
+
+function editUser(id,username,email,telephone,city,state,country){
+    jQuery("#uid").val(id);
+    jQuery("#editusername").val(username);
+     jQuery("#edituseremail").val(email);
+     jQuery("#edittelephone").val(telephone);
+     jQuery("#editaddress").html(address);
+     jQuery("#edittelephone").val(telephone);
+     jQuery("#editcity").val(city);
+     jQuery("#editstate").val(state);
+     jQuery("#editcountry").val(country);
+    jQuery("#edituserview").appendTo("body").modal()
+
+    }
+
+           function deleteUser(id){
+              location.href="users/delete/"+id
+
+          }
+
+
+          function resetUserDevice(id){
+              location.href="users/resetdevice/"+id
+
+          }
+
+
+
+
+    /**     jQuery('.citypicker')
+    .selectpicker({
+        liveSearch: true
+    })
+    .ajaxSelectPicker({
+        ajax: {
+            url: '/server/path/to/ajax/results',
+            data: function () {
+
+                if(gModel.selectedGroup().hasOwnProperty('ContactGroupID')){
+                    params.GroupID = gModel.selectedGroup().ContactGroupID;
+                }
+                return params;
+            }
+        },
+        locale: {
+            emptyTitle: 'Search for contact...'
+        },
+        preprocessData: function(data){
+            var contacts = [];
+            if(data.hasOwnProperty('Contacts')){
+                var len = data.Contacts.length;
+                for(var i = 0; i < len; i++){
+                    var curr = data.Contacts[i];
+                    contacts.push(
+                        {
+                            'value': curr.ContactID,
+                            'text': curr.FirstName + ' ' + curr.LastName,
+                            'data': {
+                                'icon': 'icon-person',
+                                'subtext': 'Internal'
+                            },
+                            'disabled': false
+                        }
+                    );
+                }
+            }
+            return contacts;
+        },
+        preserveSelected: false
+    });
+    */
+    </script>
+</body>
+
+
+
+
+
+
+ <div id="edituserview" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Edit User</h4>
+      </div>
+
+  <form action="users/update" class="form-horizontal" method="post">
+     <div class="modal-body">
+
+    <div class="form-group">
+     <label class="col-sm-2 control-label">Firstname</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="firstname" id="editfirstname" class="form-control" placeholder="firstname">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+         <div class="form-group">
+     <label class="col-sm-2 control-label">Lastname</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="lastname" id="editlastname" class="form-control" placeholder="lastname">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Username</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="username" id="editusername" class="form-control" placeholder="username">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+     <div class="form-group">
+
+     <label class="col-lg-2 control-label">Password</label>
+     <div class="col-lg-10">
+     <input type="password" name="password" id="editpassword" class="form-control" placeholder="password">
+     </div>
+     </div>
+
+  <div class="line line-dashed b-b line-lg pull-in"></div>
+
+<div class="form-group">
+     <label class="col-sm-2 control-label">Email</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="email" id="edituseremail" class="form-control" placeholder="email">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+
+   <div class="form-group">
+     <label class="col-sm-2 control-label">Telephone</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="telephone" id="edittelephone" class="form-control" placeholder="telephone">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+
+         <div class="form-group">
+     <label class="col-sm-2 control-label">Address</label>
+     <div class="col-sm-10">
+
+         <textarea name="address" id="editaddress" class="form-control"></textarea>
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+          <div class="form-group">
+     <label class="col-sm-2 control-label">City</label>
+     <div class="col-sm-10">
+    <!--<select name="city" id="editcity" class="form-control selectpicker with-ajax" data-live-search="true"></select>-->
+     <input type="text" name="city" id="editcity" class="form-control citypicker" placeholder="city">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+          <div class="form-group">
+     <label class="col-sm-2 control-label">State</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="state" id="editstate" class="form-control" placeholder="state">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+
+         <div class="form-group">
+     <label class="col-sm-2 control-label">Country</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="country" id="editcountry" class="form-control" placeholder="country">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+ <input type="hidden" name="uid" id="uid" >
+{% csrf_token %}
+
+<div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+</form>
+
+   </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+</html>

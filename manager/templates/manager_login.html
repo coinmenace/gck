@@ -1,0 +1,55 @@
+{% load static %}
+{% include "manager_includes.html" %}
+
+<body class="">
+    <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
+        <div class="container aside-xl">   
+            <img src="{% static "images/logo/logo.png" %}" class="m-r-sm" alt="scale" width="200px" height="200px">
+
+
+                {% if request.session %}
+                <div>
+                    <span class="info-login">{{ request.session.message }}</span>
+                </div>
+                {% endif %}
+            <section class="m-b-lg">
+
+                <header class="wrapper text-center"> <strong>Sign in to get in touch</strong> </header>
+
+                <form action="auth" method="post">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <input type="text" name="username" id="username" placeholder="username" class="form-control no-border">
+                        </div>
+                        <div class="list-group-item">
+                            <input type="password" name="password" id="password" placeholder="password" class="form-control no-border">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+                   {% csrf_token %}
+
+                    <div class="line line-dashed"></div>
+                     </form>
+            </section>
+        </div>
+    </section>
+    <!-- footer -->
+    <footer id="footer">
+        <div class="text-center padder">
+            <p> <small>{{data.sitename}}<br>&copy; 2018</small> </p>
+        </div>
+    </footer>
+    <!-- / footer -->
+    <!-- Bootstrap -->
+    <!-- App -->
+     {% include "script.html" %}
+ <script src="{% static "js/jquery.validate.min.js" %}"></script>
+    <script src="{% static "js/additional-methods.min.js" %}"></script>
+<style>
+    .info-login{
+    font-color:red;
+    }
+</style>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+{% load static %}
+<nav class="nav-primary hidden-xs">
+<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>
+<ul class="nav nav-main" data-ride="collapse">
+    <li {% if data.view == "dashboard" %}class="active" {%  endif %}>
+        <a href="./" class="auto"> <i class="fa fa-dashboard icon"> </i> <span class="font-bold">Dashboard</span> </a>
+    </li>
+    <li {% if data.view == "admin" %}class="active" {%  endif %}>
+        <a href="admin" class="auto"> <i class="fa fa-linux icon"> </i> <span class="font-bold">Manage Admin</span> </a>
+    </li>
+    <li {% if data.view == "users" %}class="active" {%  endif %}>
+        <a href="users" class="auto"> <i class="fa fa-users icon"> </i> <span class="font-bold">Manage Users</span> </a>
+    </li>
+
+     <li {% if data.view == "wallet" %}class="active" {%  endif %}>
+        <a href="wallet" class="auto"> <i class="fa fa-credit-card icon"> </i> <span class="font-bold">Manage Wallet</span> </a>
+    </li>
+    <li {% if data.view == "authors" %}class="active" {%  endif %}>
+        <a href="authors" class="auto"> <i class="fa fa-pencil icon"> </i> <span class="font-bold">Manage Authors</span> </a>
+    </li>
+
+   <!-- <li {% if data.view == "books" %}class="active" {%  endif %}>
+        <a href="books" class="auto"> <i class="fa fa-book icon"> </i> <span class="font-bold">Manage Books</span> </a>
+    </li>
+    <li {% if data.view == "banner" %}class="active" {%  endif %}>
+        <a href="banner" class="auto"> <i class="fa fa-image icon"> </i> <span class="font-bold">Manage Banners</span> </a>
+    </li>-->
+    <li {% if data.view == "content" %}class="active" {%  endif %}>
+        <a href="content" class="auto"> <i class="fa fa-play-circle icon"> </i> <span class="font-bold">Manage Content</span> </a>
+    </li>
+    <li {% if data.view == "license" %}class="active" {%  endif %}>
+        <a href="license" class="auto"> <i class="fa fa-gavel icon"> </i> <span class="font-bold">Manage Licenses</span> </a>
+    </li>
+
+     <li {% if data.view == "transactions" %}class="active" {%  endif %}>
+        <a href="transactions" class="auto"> <i class="fa fa-money icon"> </i> <span class="font-bold">Manage Transactions</span> </a>
+    </li>
+     <li {% if data.view == "forums" %}class="active" {%  endif %}>
+        <a href="forums" class="auto"> <i class="fa fa-comments-o icon"> </i> <span class="font-bold">Manage Forums</span> </a>
+    </li>
+     <li {% if data.view == "promo" %}class="active" {%  endif %}>
+        <a href="promo" class="auto"> <i class="fa fa-bullhorn icon"> </i> <span class="font-bold">Promo/Trending</span> </a>
+    </li>
+  <!--<li {% if data.view == "messages" %}class="active" {%  endif %}>
+        <a href="messages" class="auto"> <i class="fa fa-inbox icon"> </i> <span class="font-bold">Manage Messages</span> </a>
+    </li>
+    <li {% if data.view == "settings" %}class="active" {%  endif %}>
+        <a href="settings" class="auto"> <i class="fa fa-gear icon"> </i> <span class="font-bold">Manage Settings</span> </a>
+    </li>-->
+
+
+</ul>
+                                  
+                                </nav>

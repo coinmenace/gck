@@ -1,0 +1,221 @@
+{% load static %}
+{% include "manager_includes.html" %}
+
+ 
+<body class="">
+    <section class="vbox">
+        <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+        <!-- nav -->
+     {% include "manager_nav.html" %}
+        <!-- / nav -->
+        </header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">
+                    <section class="vbox">
+                        <section class="w-f scrollable">
+                             <!-- nav -->
+                                    {% include "manager_sidebar.html" %}
+                                <!-- / nav -->
+                        </section>
+                        
+                    </section>
+                </aside>
+                <!-- /.aside -->
+                <section id="content">
+                    <section class="vbox">
+                        <section class="scrollable padder">
+                            <div class="m-b-md">
+                        <h3 class="m-b-none">Wallet</h3> </div>
+
+
+
+
+
+
+{%  if data.creditwallet %}
+<section class="panel panel-default"> 
+<header class="panel-heading font-bold"> Credit Wallet</header>
+
+ <div class="panel-body"> 
+    <form action="/manager/wallet/credit" class="form-horizontal" method="post">
+    
+  
+     
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Username</label>
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="username" id="username" class="form-control" value="{% if data.user.username %}{{ data.user.username }}{% endif %}">
+     </div> 
+     </div>
+
+        <div class="form-group">
+     <label class="col-sm-2 control-label">Amount</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="amount" id="amount" class="form-control" >
+         <input type="hidden" name="uid" id="uid" class="form-control" value="{% if data.user.id %}{{ data.user.id }}{% endif %}">
+
+     </div>
+     </div>
+     {% csrf_token %}
+    
+   
+
+
+ <div class="form-group"> 
+      <div class="col-sm-4 col-sm-offset-2"> 
+       <button type="submit" class="btn btn-primary">Save changes</button> 
+      
+      </div> 
+
+      </form>
+</div>
+<!-- End panel -->
+</section>
+
+{% endif %}
+
+
+{%  if data.debitwallet %}
+<section class="panel panel-default">
+<header class="panel-heading font-bold">Debit Wallet</header>
+
+ <div class="panel-body">
+    <form action="/manager/wallet/debit" class="form-horizontal" method="post">
+
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Username</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="username" id="username" class="form-control" value="{% if data.user.username %}{{ data.user.username }}{% endif %}">
+     </div>
+     </div>
+
+        <div class="form-group">
+     <label class="col-sm-2 control-label">Amount</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="amount" id="amount" class="form-control" >
+
+<input type="hidden" name="uid" id="uid" class="form-control" value="{% if data.user.id %}{{ data.user.id }}{% endif %}">
+
+       </div>
+     </div>
+     {% csrf_token %}
+
+
+
+
+ <div class="form-group">
+      <div class="col-sm-4 col-sm-offset-2">
+       <button type="submit" class="btn btn-primary">Save changes</button>
+
+      </div>
+
+      </form>
+</div>
+<!-- End panel -->
+</section>
+{% endif %}
+
+
+<section class="panel panel-default">
+                                <header class="panel-heading"> Users <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
+                                <div class="table-responsive">
+                                    <table class="table table-striped m-b-none" 
+                                     data-toggle="table"
+                                     data-pagination="true"
+                                    data-side-pagination="server"
+                                    id="wallet">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="id" width="5%">ID</th>
+                                                <th data-field="username" width="7%">Username</th>
+                                                <th data-field="balance" width="15%">Balance</th>
+
+                                                <th data-field="createdate" width="25%">Create Date</th>
+                                                <th  data-formatter="displayEdit"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+</section>
+
+
+                       
+                        </section>
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+                </section>
+    
+
+
+
+            </section>
+        </section>
+    </section>
+    <!-- Bootstrap -->
+    <!-- App -->
+      {% include "script.html" %}
+      <script>
+ 
+
+      var $wallettable = $('#wallet');
+	   
+    $(function () {
+	var number=0;
+
+
+
+
+        $wallettable.on('page-change.bs.table', function (e, number, size) {
+            getWalletData(number, size);
+        });
+        var options = $wallettable.bootstrapTable('getOptions');
+        getWalletData(options.pageNumber, options.pageSize);
+    });
+
+
+
+    function getWalletData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('wallet/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $wallettable.bootstrapTable('load', res);
+        });
+    }
+
+
+    function displayEdit(value, row) {
+ 
+         return "<a class='btn btn-small btn-primary' href='#' onclick='creditUser("+row.id+")'>Credit User</a>  "+
+         "<a class='btn btn-small btn-danger' href='#' onclick='debitUser("+row.id+")'>Debit User</a>"
+    "</ul>"
+    }
+
+
+
+          function creditUser(id){
+              location.href="/manager/wallet/usercredit/"+id
+
+          }
+
+           function debitUser(id){
+              location.href="/manager/wallet/userdebit/"+id
+
+          }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>{{ data.sitename }}</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../static/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="../static/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="../static/plugins/animate-css/animate.min.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../static/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="../static/plugins/jquery-1.12.3.min.js"></script>
+</head>
+
+<body>
+
+
+
+
+
+        <div class="container">
+            <div class="row">
+
+
+
+
+
+
+            <div class="col-md-8 col-md-offset-2">
+                    <h2 style="text-align: center;">
+                        Review Your Order & Complete Checkout
+                    </h2>
+
+                    <div class="shopping_cart">
+                        <form >
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Review
+                                                Your Order <b>(Transaction Reference:{{ data.transid }})</b></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <div class="items">
+                                                <div class="col-md-9">
+                                                    <table class="table table-striped">
+                                                        <tr>
+                                                            <td colspan="2">
+
+                                                                <b>
+                                                                    {{ data.description }}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <ul>
+                                                                    <li> {{ data.description }}</li>
+
+                                                                </ul>
+                                                            </td>
+                                                            <td>
+                                                                <b>{{ data.amount }}</b>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div style="text-align: center;">
+                                                        <h3>Order Total</h3>
+                                                        <h3><span style="color:green;">{{ data.amount }}</span></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                            </form>
+
+
+
+                    </div>
+                </div>
+            <div class="col-md-8 col-md-offset-2">
+            <div id="kpay-pay-component"> {% if data.payment_gateway == "paystack" %} <button class="btn btn-success" id="paynow">Pay Now</button> {% endif %}</div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 <form   autocomplete="off">
+        {% if data.payment_gateway == "kongapay" %}
+
+            {% if data.payment_type == "production" %}
+
+        <script src="https://www.kongapay.com/plugins/web-plugin/js/kpay.min.js"></script>
+        {% else %}
+        <script src="https://sandbox.kongapay.com/plugins/web-plugin/js/kpay-sand.min.js"></script>
+        {% endif %}
+
+ <script>
+    new KongaPay({
+        merchantId: "{{ data.merchantid }}",
+        merchantName: "{{ data.merchantname }}",
+        phone:"{{ data.phone }}", //optional
+        callBack: "{{ data.callbackurl }}",
+        amount: "{{ data.amount }}",
+        transactionReference: "{{ data.transid }}" ,
+        buttonSize: 140,
+        description : "{{ data.description }}", //optional
+    });
+</script>
+              {% endif %}
+
+            {% if data.payment_gateway == "paystack" %}
+
+
+                <script src="https://js.paystack.co/v1/inline.js"></script>
+                <script>
+
+                paystackHandler = PaystackPop.setup({
+          key: "{{ data.merchantid }}",
+          email: "{{ data.email }}",
+          amount: parseFloat({{ data.amount }}) * 100,
+          onClose: function () {
+           // payment_btn.attr('disabled', false).html('Make Payment');
+          },
+          callback: function (response) {
+              console.log(response)
+              transid=response.trxref;
+            //$("#payment-form, .demo-talk").addClass('hidden');
+            //$("#success-message").removeClass('hidden').find('#trans-ref').text(response.trxref);
+          }
+        })
+                $("#paynow").click(function(){
+                  paystackHandler.openIframe();
+                });
+
+                </script>
+              {% endif %}
+
+
+          </form>
+
+        </div>
+    </div>
+
+
+</body>
+</html>
+

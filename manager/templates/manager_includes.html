@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="app">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{{ data.sitename }}</title>
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/app.v1.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'js/datatables/datatables.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+     <link rel="stylesheet" href="{% static 'css/bootstrap-table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-editable.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ajax-bootstrap-select.css' %}">
+    <link rel="stylesheet" href="{% static 'js/datepicker/datepicker.css' %}">
+     <style>
+    .modal-backdrop {
+  z-index: -1;
+}
+label.error{
+color:red;
+font-size:14px;
+}
+</style>
+    <!--[if lt IE 9]>
+    <script src="{% static 'js/ie/html5shiv.js' %}"></script>
+<script src="{% static 'js/ie/respond.min.js' %}"></script>
+<script src="{% static 'js/ie/excanvas.js' %}"></script> <![endif]-->
+</head>

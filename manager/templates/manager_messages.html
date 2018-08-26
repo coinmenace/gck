@@ -1,0 +1,180 @@
+{% load static %}
+ {% include "manager_includes.html" %}
+
+<body class="">
+    <section class="vbox">
+        <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+        <!-- nav -->
+     {% include "manager_nav.html" %}
+        <!-- / nav -->
+        </header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">
+                    <section class="vbox">
+                        <section class="w-f scrollable">
+                             <!-- nav -->
+                                    {% include "manager_sidebar.html" %}
+                                <!-- / nav -->
+                        </section>
+                        
+                    </section>
+                </aside>
+                <!-- /.aside -->
+                <section id="content">
+
+
+
+
+                    <section class="vbox">
+                        <section class="scrollable padder">
+                    <div class="m-b-md">
+                        <h3 class="m-b-none">Messages</h3> </div>
+                            
+                            
+                            
+
+
+
+
+
+
+
+
+<section class="panel panel-default"> 
+<header class="panel-heading font-bold"> Create Message</header>
+
+ <div class="panel-body"> 
+    <form action="forums/create" class="form-horizontal" method="post"> 
+    
+  <div class="form-group"> 
+      <label class="col-sm-2 control-label">Topics</label>
+      <div class="col-sm-10"> 
+      <select multiple="" class="form-control">
+         {% for ft in data.forumtopic %}
+         <option value={{ft.id}}>{{ft.topic}} / Likes {{ft.likes}} / Comments {{ft.comments}}</option>
+        {% endfor %}
+       </select>
+
+       </div> 
+       </div> 
+
+
+     
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Name</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="topic" id="topic" class="form-control" placeholder="topic"> 
+     </div> 
+     </div> 
+     {% csrf_token %}
+    
+   
+
+
+ <div class="form-group"> 
+      <div class="col-sm-4 col-sm-offset-2"> 
+       <button type="submit" class="btn btn-primary">Save changes</button> 
+      
+      </div> 
+
+
+
+      </form>
+</div>
+<!-- End panel -->
+</section>
+
+
+
+
+
+
+
+
+                            
+                            <section class="panel panel-default">
+                                <header class="panel-heading"> Forums <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
+                                <div class="table-responsive">
+                                    <table class="table table-striped m-b-none"
+                                    
+                                       data-toggle="table"
+           data-pagination="true"
+         data-side-pagination="server" id="forum">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="id" width="5%">Id</th>
+                                                <th data-field="topic" width="20%">Topic</th>
+                                                <th data-field="comments" width="5%">Comments</th>
+                                                <th data-field="likes" width="5%">Likes</th>
+                                                <th data-field="status" width="15%">Status</th>
+                                                <th data-field="createdate"  width="15%">Create Date</th>
+                                                <th  data-formatter="displayEdit"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </section>
+
+
+
+
+
+
+                        </section>
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- Bootstrap -->
+    <!-- App -->
+
+     {% include "script.html" %}
+     <script src="{% static "js/jquery.validate.min.js" %}"></script>
+    <script src="{% static "js/additional-methods.min.js" %}"></script>
+      <script>
+   
+    var $table = $('#forum');
+	   
+    $(function () {
+	var number=0;
+        $table.on('page-change.bs.table', function (e, number, size) {
+            getData(number, size);
+        });
+        var options = $table.bootstrapTable('getOptions');
+        getData(options.pageNumber, options.pageSize);
+    });
+    function getData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('forums/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $table.bootstrapTable('load', res);
+        });
+    }
+
+    function displayEdit(value, row) {
+ 
+         return "<a class='btn btn-small btn-primary' href='#' onclick='editRow("+row.id+")'>Edit</a>  "+
+         "<a class='btn btn-small btn-danger' href='#' onclick='deleteRowTopic("+row.id+")'>Delete</a>"
+    "</ul>"
+    }
+
+    function deleteRowTopic(id){
+              location.href="forums/delete/"+id
+
+     }
+
+    </script>
+</body>
+
+</html>

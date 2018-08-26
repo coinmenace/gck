@@ -1,0 +1,60 @@
+{% load static %}
+{% include "api_payment_header.html" %}
+<body>
+	<div class="container">
+    <div class="row">
+        <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                     <img src="{%  static "images/logo/logo.png" %}"  width="150px" height="150px" />
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 style="text-align: center;">
+                        Order Status
+                    </h2>
+
+                    <div class="shopping_cart">
+                        <form >
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                      <div id="collapseOne" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <div class="items">
+                                                <div class="col-md-12">
+
+                                                    <h1>{{ data.message }}</h1>
+                                                    <h3><a class="btn btn-success btn-lg" href="audiolearn://Main?pid={{data.pid}}">Complete Download</a></h3>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+                            </form>
+
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+	<script type="text/javascript">
+	
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,99 @@
+{% load static %}
+ {% include "manager_includes.html" %}
+
+ 
+<body class="">
+    <section class="vbox">
+        <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+        <!-- nav -->
+     {% include "manager_nav.html" %}
+        <!-- / nav -->
+        </header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">
+                    <section class="vbox">
+                        <section class="w-f scrollable">
+                             <!-- nav -->
+                                    {% include "manager_sidebar.html" %}
+                                <!-- / nav -->
+                        </section>
+                        
+                    </section>
+                </aside>
+                <!-- /.aside -->
+                <section id="content">
+                    <section class="vbox">
+                        <section class="scrollable padder">
+                            <div class="m-b-md">
+                        <h3 class="m-b-none">Content License</h3> </div>
+                            <section class="panel panel-default">
+                                <header class="panel-heading"> Content License <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
+                                <div class="table-responsive">
+                                    <table 
+                                    id="licenses"
+                                    class="table table-striped m-b-none" 
+                                    data-toggle="table"
+                                    data-pagination="true"
+                                    data-side-pagination="server"
+                                    data-ride="datatables">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="username" width="20%">Username</th>
+                                                <th data-field="key" width="25%">License Key</th>
+                                                <th data-field="product" width="25%">Product Name</th>
+                                                <th data-field="licensedate" width="15%">Active Date</th>
+                                                <th data-formatter="displayEdit" width="15%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- Bootstrap -->
+    <!-- App -->
+     {% include "script.html" %}
+ <script src="{% static "js/jquery.validate.min.js" %}"></script>
+    <script src="{% static "js/additional-methods.min.js" %}"></script>
+</body>
+<script>
+     var $table = $('#licenses');
+	   
+    $(function () {
+	var number=0;
+        $table.on('page-change.bs.table', function (e, number, size) {
+            getData(number, size);
+        });
+        var options = $table.bootstrapTable('getOptions');
+        getData(options.pageNumber, options.pageSize);
+    });
+    function getData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('license/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $table.bootstrapTable('load', res);
+        });
+    }
+
+    function displayEdit(value, row) {
+ 
+         return "<a class='btn btn-small btn-primary' href='#' onclick='editRow("+row.id+")'>Edit</a>  "+
+         "<a class='btn btn-small btn-danger' href='#' onclick='deleteRow("+row.id+")'>Revoke</a>"
+    "</ul>"
+    }
+
+</script>
+</html>

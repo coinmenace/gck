@@ -1,0 +1,540 @@
+{% load static %}
+ {% include "manager_includes.html" %}
+ 
+<body class="">
+    <section class="vbox">
+        <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+        <!-- nav -->
+     {% include "manager_nav.html" %}
+        <!-- / nav -->
+        </header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">
+                    <section class="vbox">
+                        <section class="w-f scrollable">
+                             <!-- nav -->
+                                    {% include "manager_sidebar.html" %}
+                                <!-- / nav -->
+                        </section>
+                        
+                    </section>
+                </aside>
+                <!-- /.aside -->
+                <section id="content">
+                    <section class="vbox">
+                        <section class="scrollable padder">
+                            <div class="m-b-md">
+                        <h3 class="m-b-none">Books</h3> </div>
+
+
+
+<section class="panel panel-default"> 
+<header class="panel-heading font-bold"> Create Collections</header>
+
+ <div class="panel-body"> 
+    <form action="books/createcollection" class="form-horizontal" method="post">
+    
+  <div class="form-group"> 
+      <label class="col-sm-2 control-label">Collections</label>
+      <div class="col-sm-10"> 
+      <select multiple="" class="form-control">
+         {% for collection in data.collections %}
+         <option value={{collection.id}}>{{collection.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div> 
+       </div> 
+
+
+     
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Name</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="name" id="name" class="form-control" placeholder="name">
+     </div> 
+     </div>
+
+      <div class="form-group">
+     <label class="col-sm-2 control-label">Description</label>
+     <div class="col-sm-10">
+
+     <textarea  name="description" id="description" class="form-control" > </textarea>
+
+     </div>
+     </div>
+     {% csrf_token %}
+    
+   
+
+
+ <div class="form-group"> 
+      <div class="col-sm-4 col-sm-offset-2"> 
+       <button type="submit" class="btn btn-primary">Save changes</button> 
+      
+      </div> 
+
+
+
+      </form>
+</div>
+<!-- End panel -->
+</section>
+
+
+<section class="panel panel-default">
+<header class="panel-heading font-bold"> Create Book</header>
+
+ <div class="panel-body">
+    <form action="books/create" class="form-horizontal" method="post">
+
+  <div class="form-group">
+      <label class="col-sm-2 control-label">Collection</label>
+      <div class="col-sm-10">
+      <select  name="collectionid" id="collectionid" class="form-control">
+         {% for collection in data.collections %}
+         <option value={{collection.id}}>{{collection.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div>
+       </div>
+
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Name</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="name" id="name" class="form-control" placeholder="name">
+     </div>
+     </div>
+
+      <div class="form-group">
+     <label class="col-sm-2 control-label">Description</label>
+     <div class="col-sm-10">
+
+     <textarea  name="description" id="description" class="form-control" > </textarea>
+
+     </div>
+     </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Author</label>
+      <div class="col-sm-10">
+      <select  name="authorid" id="authorid" class="form-control">
+         {% for author in data.authors %}
+         <option value={{author.id}}>{{author.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div>
+       </div>
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">ISBN</label>
+     <div class="col-sm-10">
+
+         <input type="text" name="isbn" id="isbn" class="form-control" placeholder="isbn">
+
+
+     </div>
+     </div>
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Publish Date</label>
+     <div class="col-sm-10">
+        <input type="date" name="publishdate" id="publishdate" class="form-control" placeholder="publishdate">
+
+
+     </div>
+     </div>
+
+
+
+     {% csrf_token %}
+
+
+
+
+ <div class="form-group">
+      <div class="col-sm-4 col-sm-offset-2">
+       <button type="submit" class="btn btn-primary">Save changes</button>
+
+      </div>
+
+
+
+      </form>
+</div>
+<!-- End panel -->
+</section>
+
+<section class="panel panel-default">
+<header class="panel-heading font-bold"> Create Content Category</header>
+
+ <div class="panel-body">
+    <form action="category/create" class="form-horizontal" method="post">
+
+  <div class="form-group">
+      <label class="col-sm-2 control-label">Categories</label>
+      <div class="col-sm-10">
+      <select multiple="" class="form-control">
+         {% for cat in data.categories %}
+         <option value={{cat.id}}>{{cat.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div>
+       </div>
+
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Name</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="name" id="name" class="form-control" placeholder="category">
+     </div>
+     </div>
+     {% csrf_token %}
+
+
+
+
+ <div class="form-group">
+      <div class="col-sm-4 col-sm-offset-2">
+       <button type="submit" class="btn btn-primary">Save changes</button>
+
+      </div>
+
+
+
+      </form>
+</div>
+<!-- End panel -->
+</section>
+
+
+
+<section class="panel panel-default"> 
+<header class="panel-heading font-bold"> Upload Content</header> 
+
+ <div class="panel-body"> 
+    <form action="media/create" enctype="multipart/form-data" class="form-horizontal" method="post"> 
+    
+  <div class="form-group"> 
+      <label class="col-sm-2 control-label">Categories</label>
+      <div class="col-sm-10"> 
+      <select name="catid" id="catid" class="form-control">
+         {% for cat in data.categories %}
+         <option value={{cat.id}}>{{cat.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div> 
+       </div> 
+
+
+
+    
+  <div class="form-group"> 
+      <label class="col-sm-2 control-label">Authors</label>
+      <div class="col-sm-10"> 
+      <select name="authorid" id="authorid" class="form-control">
+         {% for author in data.authors %}
+         <option value={{author.id}}>{{author.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div> 
+       </div> 
+
+
+     
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Name</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="name" id="name" class="form-control" placeholder="name" /> 
+     </div> 
+     </div> 
+
+
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Description</label> 
+     <div class="col-sm-10"> 
+     
+     <textarea name="description" id="description" class="form-control" > </textarea> 
+     </div> 
+     </div> 
+
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Price</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="price" id="price" class="form-control" placeholder="0.0" /> 
+     </div> 
+     </div> 
+
+      <div class="form-group"> 
+     <label class="col-sm-2 control-label">Poster</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="file" name="poster" id="poster" class="form-control" /> 
+     </div> 
+     </div> 
+
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Media</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="file" name="media" id="media" class="form-control" /> 
+     </div> 
+     </div> 
+
+
+     
+     {% csrf_token %}
+    
+   
+
+
+ <div class="form-group"> 
+      <div class="col-sm-4 col-sm-offset-2"> 
+       <button type="submit" class="btn btn-primary">Save changes</button> 
+      
+      </div> 
+
+
+
+      </form>
+</div>
+<!-- End panel -->
+</section>
+
+
+
+
+
+
+
+
+                            <section class="panel panel-default">
+                                <header class="panel-heading"> Media/Content <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
+                                <div class="table-responsive">
+            <table class="table table-striped m-b-none" 
+            data-toggle="table"
+            data-pagination="true"
+           data-side-pagination="server" 
+           id="products">
+                                        <thead>
+                                            <tr>
+                                                <th  data-field="id" width="5%">ID</th>
+                                                 <th   data-formatter="fetchAsync"></th>
+                                                <th  data-field="name" width="15%">Name</th>
+                                                <th  data-field="category" width="15%">Category</th>
+                                                <th  data-field="author" width="20%">Author</th>
+                                                <th  data-field="description" width="30%">Description</th>
+                                                <th  data-field="price" width="5%">Price</th>
+                                                 <th  data-formatter="displayEdit"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- Bootstrap -->
+    <!-- App -->
+    {% include "script.html" %}
+     <script src="{% static "js/jquery.validate.min.js" %}"></script>
+    <script src="{% static "js/additional-methods.min.js" %}"></script>
+     <script>
+  
+    var $table = $('#products');
+	   
+    $(function () {
+	var number=0;
+        $table.on('page-change.bs.table', function (e, number, size) {
+            getData(number, size);
+        });
+        var options = $table.bootstrapTable('getOptions');
+        getData(options.pageNumber, options.pageSize);
+    });
+    function getData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('media/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $table.bootstrapTable('load', res);
+        });
+    }
+
+    function displayEdit(value, row) {
+ 
+         return "<a class='btn btn-sm btn-primary' href='#' onclick='editBooks("+row.id+")'>Edit</a>  "+
+         "<a class='btn btn-sm btn-danger' href='#' onclick='deleteRowContent("+row.id+")'>Delete</a>"
+    "</ul>"
+    }
+
+    function deleteRowContent(id){
+              location.href="media/delete/"+id
+
+          }
+
+    function fetchAsync(value, row){
+	if(row.image!=""){
+        data='<img width="150px" heigh="70px" class="lazy" data-src="" id="img_'+row.id+'" src="../static/thumbs/'+row.image+'"/>'
+        }else{
+        data=''
+        }
+        return data;
+	}
+
+
+    function editBooks(id,username,role){
+    //jQuery("#editusername").val(username);
+   // jQuery("#editrole").val(role);
+    jQuery("#editbooks").appendTo("body").modal()
+
+    }
+
+
+    jQuery("#create_book_form").validate({
+	rules: {
+		name: {
+			required: true,
+			normalizer: function(value) {
+				return $.trim(value);
+			},minlength: 5
+		},
+		picture:  "required",
+  messages: {
+    picture:{
+     required: "Please upload a picture of the author"
+     },
+    name:{
+     required: "Required input",
+     minlength: jQuery.validator.format("Please, at least {0} characters are necessary")
+    }
+  }
+	}
+});
+
+
+jQuery("#edit_book_form").validate({
+	rules: {
+		name: {
+			required: true,
+			normalizer: function(value) {
+				return $.trim(value);
+			},minlength: 5
+		},
+		picture:  "required",
+  messages: {
+    picture:{
+     required: "Please upload a picture of the author"
+     },
+    name:{
+     required: "Required input",
+     minlength: jQuery.validator.format("Please, at least {0} characters are necessary")
+    }
+  }
+	}
+});
+
+    </script>
+</body>
+
+
+
+ <div id="editbooks" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Edit Admin</h4>
+      </div>
+
+
+
+     <form action="/manager/admin/update" class="form-horizontal" method="post">
+
+
+      <div class="modal-body">
+
+
+
+
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Username</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="username" id="editusername" class="form-control" value="">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+     <div class="form-group">
+
+     <label class="col-lg-2 control-label">Password</label>
+     <div class="col-lg-10">
+     <input type="password" name="password" id="editpassword" class="form-control" placeholder="password">
+     </div>
+     </div>
+
+  <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+      <div class="form-group">
+
+     <label class="col-lg-2 control-label">Role</label>
+     <div class="col-lg-10">
+         <select name="role" id="editrole" class="form-control">
+   {% for r in data.role %}
+
+        <option {% if data.admin.role == r.id %}selected{% endif %} value={{r.id}}>{{r.name}}</option>
+   {% endfor %}
+         </select>
+     </div>
+     </div>
+
+
+       <div class="line line-dashed b-b line-lg pull-in"></div>
+<input type="hidden" name="uid" id="uid" class="form-control" value="{% if data.admin.id %}{{ data.admin.id }}{% endif %}">
+
+
+{% csrf_token %}
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+       </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+</html>

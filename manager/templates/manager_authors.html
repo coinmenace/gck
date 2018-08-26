@@ -1,0 +1,278 @@
+{% load static %}
+ {% include "manager_includes.html" %}
+
+<body class="">
+
+
+
+
+    <section class="vbox">
+        <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+        <!-- nav -->
+     {% include "manager_nav.html" %}
+        <!-- / nav -->
+        </header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">
+                    <section class="vbox">
+                        <section class="w-f scrollable">
+                             <!-- nav -->
+                                    {% include "manager_sidebar.html" %}
+                                <!-- / nav -->
+                        </section>
+                        
+                    </section>
+                </aside>
+                <!-- /.aside -->
+                <section id="content">
+                    <section class="vbox">
+                        <section class="scrollable padder">
+                            <div class="m-b-md">
+                        <h3 class="m-b-none">Authors</h3> </div>
+
+
+
+
+
+
+<section class="panel panel-default"> 
+<header class="panel-heading font-bold"> Add Author</header> 
+
+ <div class="panel-body"> 
+    <form id="create_author_form" action="authors/create" class="form-horizontal" enctype="multipart/form-data" method="post">
+
+
+   
+    
+
+     
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Name</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="name" id="name" class="form-control" placeholder="name" /> 
+     </div> 
+     </div> 
+
+      
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Picture</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="file" name="picture" id="picture" class="form-control" /> 
+     </div> 
+     </div> 
+     {% csrf_token %}
+    
+   
+
+
+ <div class="form-group"> 
+      <div class="col-sm-4 col-sm-offset-2"> 
+       <button type="submit" class="btn btn-primary">Save changes</button> 
+      
+      </div> 
+
+
+
+      </form>
+</div>
+<!-- End panel -->
+</section>
+
+
+
+
+
+                            <section class="panel panel-default">
+                                <header class="panel-heading"> Authors <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
+                                <div class="table-responsive">
+                            
+        <table   id="authors"
+           data-toggle="table"
+           data-pagination="true"
+         data-side-pagination="server">
+        <thead>
+        <tr>
+            <th data-field="id">ID</th>
+             <th   data-formatter="fetchAsync"></th>
+            <th data-field="name" data-filter-control="input"> Name</th>
+            <th data-field="date" data-filter-control="select">Join Date</th>
+            <th  data-formatter="displayEdit"> </th>
+        </tr>
+        </thead>
+    </table>
+                                
+                                
+                                
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- Bootstrap -->
+
+<div id="editauthormodal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Edit Author</h4>
+      </div>
+
+    <form id="edit_author_form" action="authors/update" class="form-horizontal" enctype="multipart/form-data" method="post">
+      <div class="modal-body">
+
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Name</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="name" id="editname" class="form-control" placeholder="name" />
+     </div>
+     </div>
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Picture</label>
+     <div class="col-sm-10">
+
+     <input type="file" name="picture" id="editpicture" class="form-control" />
+     </div>
+     </div>
+     {% csrf_token %}
+<input type="hidden" name="authorid" id="authorid" class="form-control" />
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+       </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+    <!-- App -->
+{% include "script.html" %}
+<script src="{% static "js/jquery.validate.min.js" %}"></script>
+<script src="{% static "js/additional-methods.min.js" %}"></script>
+<script>
+
+      
+ var $table = $('#authors');
+	   
+    $(function () {
+
+	var number=0;
+        $table.on('page-change.bs.table', function (e, number, size) {
+            getData(number, size);
+        });
+        var options = $table.bootstrapTable('getOptions');
+        getData(options.pageNumber, options.pageSize);
+    });
+    function getData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('authors/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $table.bootstrapTable('load', res);
+        });
+    }
+
+    function displayEdit(value, row) {
+ 
+         return "<a class='btn btn-small btn-primary' href='#' onclick=editAuthor("+row.id+",'"+encodeURI(row.name)+"')>Edit</a>  "+
+         "<a class='btn btn-small btn-danger' href='#' onclick='deleteRowAuthors("+row.id+")'>Delete</a>"
+    "</ul>"
+    }
+
+
+     function editAuthor(id,name){
+     $("#editname").val(decodeURI(name))
+     $("#authorid").val(id);
+        $("#editauthormodal").appendTo("body").modal()
+     }
+    function deleteRowAuthors(id){
+              location.href="authors/delete/"+id
+
+          }
+
+    function fetchAsync(value, row){
+        if(row.image!=""){
+		
+		if(row.image.indexOf("http") !=-1){
+		row.image=row.image.replace("static/thumbs/","");
+			data='<img width="150px" heigh="70px" class="lazy" data-src="" id="img_'+row.id+'" src="'+row.image+'"/>'
+			}
+			else{
+        data='<img width="150px" heigh="70px" class="lazy" data-src="" id="img_'+row.id+'" src="../'+row.image+'"/>'
+		}
+        
+        }else{
+        data=''
+        }
+	return data;
+	}
+
+	jQuery("#create_author_form").validate({
+	rules: {
+		name: {
+			required: true,
+			normalizer: function(value) {
+				return $.trim(value);
+			},minlength: 5
+		},
+		picture:  "required",
+  messages: {
+    picture:{
+     required: "Please upload a picture of the author"
+     },
+    name:{
+     required: "Required input",
+     minlength: jQuery.validator.format("Please, at least {0} characters are necessary")
+    }
+  }
+	}
+});
+
+
+
+	jQuery("#edit_author_form").validate({
+	rules: {
+		editname: {
+			required: true,
+			minlength: 5
+		},
+  messages: {
+    editname:{
+     required: "Required input",
+     minlength: jQuery.validator.format("Please, at least {0} characters are necessary")
+    }
+  }
+	}
+});
+    </script>
+
+
+
+</body>
+
+</html>

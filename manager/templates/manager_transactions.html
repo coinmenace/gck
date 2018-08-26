@@ -1,0 +1,98 @@
+{% load static %}
+{% include "manager_includes.html" %}
+
+<body class="">
+    <section class="vbox">
+        <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+        <!-- nav -->
+     {% include "manager_nav.html" %}
+        <!-- / nav -->
+        </header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">
+                    <section class="vbox">
+                        <section class="w-f scrollable">
+                             <!-- nav -->
+                                    {% include "manager_sidebar.html" %}
+                                <!-- / nav -->
+                        </section>
+                        
+                    </section>
+                </aside>
+                <!-- /.aside -->
+                <section id="content">
+                    <section class="vbox">
+                        <section class="scrollable padder">
+                            <div class="m-b-md">
+                        <h3 class="m-b-none">Transactions/Billing</h3> </div>
+                            <section class="panel panel-default">
+                                <header class="panel-heading"> Transactions/Billing <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
+                                <div class="table-responsive">
+                                    <table 
+                                    id="transactions"
+                                    class="table table-striped m-b-none"
+                                    data-toggle="table"
+                                    data-pagination="true"
+                                    data-side-pagination="server" 
+                                    data-ride="datatables">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="username" width="10%">Username</th>
+                                                <th data-field="item" width="15%">Item</th>
+                                                <th data-field="price" width="5%">Price</th>
+                                                <th data-field="comment" width="15%">Comment</th>
+                                                <th data-field="tax" width="15%">Tax</th>
+                                                <th data-field="voucher" width="15%">Voucher Code</th>
+                                                <th data-field="purchasedate" width="15%">Purchase Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- Bootstrap -->
+    <!-- App -->
+     {% include "script.html" %}
+</body>
+<script>
+     var $table = $('#transactions');
+	   
+    $(function () {
+	var number=0;
+        $table.on('page-change.bs.table', function (e, number, size) {
+            getData(number, size);
+        });
+        var options = $table.bootstrapTable('getOptions');
+        getData(options.pageNumber, options.pageSize);
+    });
+    function getData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('transactions/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $table.bootstrapTable('load', res);
+        });
+    }
+
+    function displayEdit(value, row) {
+ 
+         return "<a class='btn btn-small btn-primary' href='#' onclick='editRow("+row.id+")'>Edit</a>  "+
+         "<a class='btn btn-small btn-danger' href='#' onclick='deleteRow("+row.id+")'>Revoke</a>"
+    "</ul>"
+    }
+
+</script>
+</html>

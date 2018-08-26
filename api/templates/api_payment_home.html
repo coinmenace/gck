@@ -1,0 +1,101 @@
+{% load static %}
+{% include "api_payment_header.html" %}
+<body>
+	<div class="container">
+    <div class="row">
+        <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <img src="{%  static "images/logo/logo.png" %}" width="150px" height="150px" />
+                </div>
+
+
+            </div>
+            <div class="row">
+            <p> Your Order <b>(Transaction Reference:<br/><span style='font-size:13px;'>{{ data.transid }}</span>)</b></p>
+                 <table class="table table-striped">
+                                                        <tr>
+                                                            <td colspan="2">
+
+                                                                <b>
+                                                                    {{ data.description }}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <ul>
+                                                                    <li> {{ data.description }}</li>
+
+                                                                </ul>
+                                                            </td>
+                                                            <td>
+                                                                <b>&#8358; {{ data.amount }}</b>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+
+ <div class="col-md-8 col-md-offset-2">
+            <div id="kpay-pay-component"> {% if data.payment_gateway == "paystack" %} <button class="btn btn-success" id="paynow">Pay Now</button> {% endif %}</div>
+            </div>
+
+
+
+                <script src="{% static "js/jquery.min.js" %}"></script>
+                 <form   autocomplete="off">
+        {% if data.payment_gateway == "kongapay" %}
+
+            {% if data.payment_type == "production" %}
+
+        <script src="https://www.kongapay.com/plugins/web-plugin/js/kpay.min.js"></script>
+        {% else %}
+        <script src="https://sandbox.kongapay.com/plugins/web-plugin/js/kpay-sand.min.js"></script>
+        {% endif %}
+
+ <script>
+    new KongaPay({
+        merchantId: "{{ data.merchantid }}",
+        merchantName: "{{ data.merchantname }}",
+        phone:"{{ data.phone }}", //optional
+        callBack: "{{ data.callbackurl }}",
+        amount: "{{ data.amount }}",
+        transactionReference: "{{ data.transid }}" ,
+        buttonSize: 140,
+        description : "{{ data.description }}", //optional
+    });
+</script>
+              {% endif %}
+
+            {% if data.payment_gateway == "paystack" %}
+            <script src="https://js.paystack.co/v1/inline.js"></script>
+            <!-- <script src="../static/js/paystack.js"></script>-->
+                <script>
+                var transactionid="{{ data.transactionid }}"
+                paystackHandler = PaystackPop.setup({
+          key: "{{ data.merchantid }}",
+          email: "{{ data.email }}",
+          amount: parseFloat({{ data.amount }}) * 100,
+          onClose: function () {
+           // payment_btn.attr('disabled', false).html('Make Payment');
+          },
+          callback: function (response) {
+              transid=response.trxref;
+              location.href="/api/v1/payment/completed?reference="+transid+"&transactionid="+transactionid;
+          }
+        })
+                $("#paynow").click(function(){
+                  paystackHandler.openIframe();
+                });
+
+                </script>
+              {% endif %}
+
+
+
+            </div>
+        </div>
+    </div>
+	<script type="text/javascript">
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,704 @@
+{% load static %}
+{% include "manager_includes.html" %}
+ <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
+<body class="">
+    <section class="vbox">
+        <header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+        <!-- nav -->
+     {% include "manager_nav.html" %}
+        <!-- / nav -->
+        </header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black aside-md hidden-print hidden-xs" id="nav">
+                    <section class="vbox">
+                        <section class="w-f scrollable">
+                             <!-- nav -->
+                                    {% include "manager_sidebar.html" %}
+                                <!-- / nav -->
+                        </section>
+                        
+                    </section>
+                </aside>
+                <!-- /.aside -->
+                <section id="content">
+                    <section class="vbox">
+                        <section class="scrollable padder">
+                            <div class="m-b-md">
+                        <h3 class="m-b-none">Media/Content</h3> </div>
+
+
+
+<section class="panel panel-default"> 
+<header class="panel-heading font-bold"> Create Content Category</header> 
+
+ <div class="panel-body"> 
+    <form id="create_category_form" action="category/create" class="form-horizontal" method="post">
+    
+
+     
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Name</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="name" id="catname" class="form-control" placeholder="category">
+     </div> 
+     </div> 
+     {% csrf_token %}
+    
+   
+
+
+ <div class="form-group"> 
+      <div class="col-sm-4 col-sm-offset-2"> 
+       <button type="submit" class="btn btn-primary">Save changes</button> 
+      
+      </div> 
+
+
+
+      </form>
+
+
+
+
+
+
+
+
+</div>
+<!-- End panel -->
+</section>
+<section class="panel panel-default">
+<header class="panel-heading font-bold">Edit Content Category</header>
+
+ <div class="panel-body">
+ <div class="table-responsive">
+            <table class="table table-striped m-b-none"
+            data-toggle="table"
+            data-pagination="true"
+           data-side-pagination="server"
+           id="category">
+                                        <thead>
+                                            <tr>
+                                                <th  data-field="id" width="5%">ID</th>
+                                                 <th  data-field="name"  >Category</th>
+                                                 <th  data-formatter="displayCategoryEdit"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+
+
+
+</div>
+<!-- End panel -->
+</section>
+
+<section class="panel panel-default"> 
+<header class="panel-heading font-bold"> Upload Content</header> 
+
+ <div class="panel-body"> 
+    <form action="media/create" enctype="multipart/form-data" class="form-horizontal" method="post"> 
+    
+  <div class="form-group"> 
+      <label class="col-sm-2 control-label">Categories</label>
+      <div class="col-sm-10"> 
+      <select name="catid" id="catid" class="form-control">
+         {% for cat in data.categories %}
+         <option value={{cat.id}}>{{cat.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div> 
+       </div> 
+
+
+
+    
+  <div class="form-group"> 
+      <label class="col-sm-2 control-label">Authors</label>
+      <div class="col-sm-10"> 
+      <select name="authorid" id="authorid" class="form-control">
+         {% for author in data.authors %}
+         <option value={{author.id}}>{{author.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div> 
+       </div> 
+
+
+     
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Name</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="name" id="name" class="form-control" placeholder="name" /> 
+     </div> 
+     </div> 
+
+
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Description</label> 
+     <div class="col-sm-10"> 
+     
+     <textarea name="description" id="description" class="form-control" > </textarea> 
+     </div> 
+     </div>
+
+        <div class="form-group">
+     <label class="col-sm-2 control-label">Read By</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="readby" id="readby" class="form-control" placeholder="John Doe" />
+     </div>
+     </div>
+
+
+        <div class="form-group">
+     <label class="col-sm-2 control-label">Sample Duration</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="duration" id="duration" class="form-control" placeholder="60" />
+     </div>
+     </div>
+
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Price</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="text" name="price" id="price" class="form-control" placeholder="0.0" /> 
+     </div> 
+     </div>
+
+
+         <div class="form-group">
+     <label class="col-sm-2 control-label">Document</label>
+     <div class="col-sm-10">
+
+     <input type="file" name="document" id="document" class="form-control" />
+     </div>
+     </div>
+
+
+
+      <div class="form-group"> 
+     <label class="col-sm-2 control-label">Poster</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="file" name="poster" id="poster" class="form-control" /> 
+     </div> 
+     </div> 
+
+     <div class="form-group"> 
+     <label class="col-sm-2 control-label">Media</label> 
+     <div class="col-sm-10"> 
+     
+     <input type="file" name="media" id="media" class="form-control" /> 
+     </div> 
+     </div> 
+
+
+
+        <div class="form-group">
+     <label class="col-sm-2 control-label">Generate Sample</label>
+     <div class="col-sm-10">
+
+     <input type="checkbox" name="sample" id="sample" class="form-control" checked />
+     </div>
+     </div>
+     
+     {% csrf_token %}
+    
+   
+
+
+ <div class="form-group"> 
+      <div class="col-sm-4 col-sm-offset-2"> 
+       <button type="submit" class="btn btn-primary">Save changes</button> 
+      
+      </div> 
+
+
+
+      </form>
+</div>
+<!-- End panel -->
+</section>
+
+
+
+
+
+
+
+
+                            <section class="panel panel-default">
+                                <header class="panel-heading"> Media/Content <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
+                                <div class="table-responsive">
+            <table class="table table-striped m-b-none" 
+            data-toggle="table"
+            data-pagination="true"
+           data-side-pagination="server" 
+           id="products">
+                                        <thead>
+                                            <tr>
+                                                <th  data-field="id" width="5%">ID</th>
+                                                 <th   data-formatter="fetchAsync"></th>
+                                                <th  data-field="name" width="15%">Name</th>
+                                                <th  data-field="category" width="15%">Category</th>
+                                                <th  data-field="author" width="20%">Author</th>
+                                                <th  data-field="description" width="30%">Description</th>
+                                                <th  data-field="price" width="5%">Price</th>
+                                                <th  data-formatter="displayContent"> </th>
+                                                <th  data-formatter="displayEdit"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- Bootstrap -->
+    <!-- App -->
+    {% include "script.html" %}
+    <script src="{% static "js/jquery.validate.min.js" %}"></script>
+    <script src="{% static "js/additional-methods.min.js" %}"></script>
+     <script>
+  var $cattable = $('#category');
+	     var $table = $('#products');
+    $(function () {
+
+
+	var number=0;
+        $cattable.on('page-change.bs.table', function (e, number, size) {
+            getData(number, size);
+        });
+        var catoptions = $cattable.bootstrapTable('getOptions');
+        getDataCategory(catoptions.pageNumber, catoptions.pageSize);
+
+
+
+	   
+
+	var number=0;
+        $table.on('page-change.bs.table', function (e, number, size) {
+            getData(number, size);
+        });
+        var options = $table.bootstrapTable('getOptions');
+        getData(options.pageNumber, options.pageSize);
+    });
+    function getData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('media/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $table.bootstrapTable('load', res);
+        });
+    }
+
+
+    function getDataCategory(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('category/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $cattable.bootstrapTable('load', res);
+        });
+    }
+
+    function displayCategoryEdit(value, row) {
+        console.log(row)
+         return "<a class='btn btn-sm btn-primary' href='#' onclick=editCategory("+row.id+",'"+encodeURI(row.name)+"')>Edit</a>  "+
+         "<a class='btn btn-sm btn-danger' href='#' onclick='deleteCategory("+row.id+")'>Delete</a>"
+    "</ul>"
+    }
+
+    function displayContent(value, row) {
+    //console.log(row)
+
+         return "</p><p><a class='btn btn-sm btn-primary' href='#' onclick=regenerateContent('"+encodeURI(row.id)+"')><i id='regenbtn' class='fa fa-refresh'></i> Regenerate Content</a>  "+
+         "<p><a class='btn btn-sm btn-primary' href='#' onclick=playAudio('"+encodeURI(row.audiourl)+"')><i id='playbtn' class='fa fa-play'></i> Play Audio</a>  "+
+         "</p><p><a class='btn btn-sm btn-primary' href='#' onclick=playSample('"+encodeURI(row.sampleurl)+"')><i id='samplebtn' class='fa fa-play'></i> Play Sample</a>  "+
+         "</p><p><a class='btn btn-sm btn-success' href='#' onclick=previewDocument('"+row.documenturl+"')><i class='fa fa-file'></i> Preview Document</a></p>"
+    "</ul>"
+    }
+
+    var audioElement;
+    var isplaying = false;
+    var issampleplaying = false;
+    function initAudioPlayer(url){
+    console.log(url)
+    audioElement = document.createElement('audio')
+
+    audioElement.setAttribute('src', url);
+
+    audioElement.addEventListener('ended', function() {
+        this.play();
+        isplaying = false;
+        issampleplaying = false;
+    }, false);
+
+    audioElement.addEventListener("canplay",function(){
+    console.log(audioElement.duration)
+        //$("#length").text("Duration:" + audioElement.duration + " seconds");
+        //$("#source").text("Source:" + audioElement.src);
+        //$("#status").text("Status: Ready to play").css("color","green");
+    });
+
+    audioElement.addEventListener("timeupdate",function(){
+    console.log(audioElement.currentTime)
+       // $("#currentTime").text("Current second:" + audioElement.currentTime);
+    });
+
+
+    }
+
+    function playAudio(url){
+    if(!isplaying && audioElement==null){
+        initAudioPlayer(url)
+        audioElement.play();
+        isplaying = true;
+        jQuery("#playbtn").removeClass("fa-play")
+        jQuery("#playbtn").addClass("fa-pause")
+
+     }else{
+     audioElement.pause();
+     jQuery("#playbtn").addClass("fa-play")
+     jQuery("#playbtn").removeClass("fa-pause")
+     }
+
+    }
+
+    function playSample(url){
+
+    if(!issampleplaying && audioElement==null){
+    initAudioPlayer(url)
+    audioElement.play();
+    issampleplaying = true;
+    jQuery("#samplebtn").removeClass("fa-play")
+    jQuery("#samplebtn").addClass("fa-pause")
+    }else{
+     audioElement.pause();
+     issampleplaying = false;
+     jQuery("#samplebtn").addClass("fa-play")
+     jQuery("#samplebtn").removeClass("fa-pause")
+     }
+
+
+    }
+
+    function previewDocument(url){
+    console.log(url)
+    var win = window.open(url, '_blank');
+    win.focus();
+
+    }
+
+
+    function displayEdit(value, row) {
+
+         return "<a class='btn btn-sm btn-primary' href='#' onclick=editContent("+row.id+",'"+encodeURI(row.name)+"',"+row.price+")>Edit</a>  "+
+         "<a class='btn btn-sm btn-danger' href='#' onclick='deleteRowContent("+row.id+")'>Delete</a>"
+    "</ul>"
+    }
+
+
+    function regenerateContent(id){
+
+        var c = confirm("Are you sure you want to regenerate this content?");
+         if (c) {
+                location.href="media/generate/"+id
+            }
+          }
+
+    function deleteRowContent(id){
+
+        var c = confirm("Are you sure you want to delete this content?");
+         if (c) {
+                location.href="media/delete/"+id
+            }
+          }
+
+
+
+    function deleteCategory(id){
+     var c = confirm("Are you sure you want to delete this category?");
+     if (c) {
+        location.href="category/delete/"+id
+      }
+     }
+
+    function fetchAsync(value, row){
+    try{
+	if(row.image!=""){
+	if(row.image.indexOf("http") !=-1){
+	data='<img width="150px" heigh="70px" class="lazy" data-src="" id="img_'+row.id+'" src="'+row.image+'"/>'
+	}
+	else{
+        data='<img width="150px" heigh="70px" class="lazy" data-src="" id="img_'+row.id+'" src="../'+row.image+'"/>'
+		}
+        }else{
+        data=''
+        }
+        }
+        catch(e){
+        console.log(e)
+        data=''
+        }
+        return data;
+	}
+
+   function editContent(id,name,price){
+     jQuery("#editproductname").val(decodeURI(name));
+    jQuery("#editprice").val(price);
+     jQuery("#editproductid").val(id);
+    jQuery("#editcontent").appendTo("body").modal()
+
+    }
+
+
+     function editCategory(id,name){
+     jQuery("#editcatname").val(decodeURI(name));
+     jQuery("#categoryid").val(id);
+     jQuery("#editcategory").appendTo("body").modal()
+
+    }
+
+ $().ready(function(){
+
+
+	$("#create_category_form").validate({
+	rules: {
+		catname:"required",
+  messages: {
+
+    catname:"Please enter a category name"
+  }
+	}
+});
+});
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelement-and-player.min.js"></script>
+
+
+<div id="editcategory" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Edit Category</h4>
+      </div>
+
+
+
+
+
+
+      <div class="modal-body">
+
+
+ <form action="/manager/category/update" class="form-horizontal" method="post">
+
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Name</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="name" id="editcatname" class="form-control" value="">
+     </div>
+     </div>
+
+     <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+
+
+
+
+
+<input type="hidden" name="categoryid" id="categoryid" class="form-control" >
+
+
+{% csrf_token %}
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+       </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</div>
+
+
+
+ <div id="editcontent" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Edit Content</h4>
+      </div>
+
+
+
+     <form action="/manager/media/update" class="form-horizontal" enctype="multipart/form-data" method="post">
+
+
+      <div class="modal-body">
+
+
+
+
+
+
+     <div class="form-group">
+      <label class="col-sm-2 control-label">Categories</label>
+      <div class="col-sm-10">
+      <select name="catid" id="editcatid" class="form-control">
+         {% for cat in data.categories %}
+         <option value={{cat.id}}>{{cat.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div>
+       </div>
+
+
+
+
+  <div class="form-group">
+      <label class="col-sm-2 control-label">Authors</label>
+      <div class="col-sm-10">
+      <select name="authorid" id="editauthorid" class="form-control">
+         {% for author in data.authors %}
+         <option value={{author.id}}>{{author.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div>
+       </div>
+
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Name</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="name" id="editproductname" class="form-control" placeholder="name" />
+     </div>
+     </div>
+
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Description</label>
+     <div class="col-sm-10">
+
+     <textarea name="description" id="editdescription" class="form-control" ></textarea>
+     </div>
+     </div>
+
+        <div class="form-group">
+     <label class="col-sm-2 control-label">Read By</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="readby" id="editreadby" class="form-control" placeholder="John Doe" />
+     </div>
+     </div>
+
+
+        <div class="form-group">
+     <label class="col-sm-2 control-label">Sample Duration</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="duration" id="editduration" class="form-control" placeholder="60" />
+     </div>
+     </div>
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Price</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="price" id="editprice" class="form-control" placeholder="0.0" />
+     </div>
+     </div>
+
+
+
+          <div class="form-group">
+     <label class="col-sm-2 control-label">Document</label>
+     <div class="col-sm-10">
+
+     <input type="file" name="document" id="editdocument" class="form-control" />
+     </div>
+     </div>
+
+      <div class="form-group">
+     <label class="col-sm-2 control-label">Poster</label>
+     <div class="col-sm-10">
+
+     <input type="file" name="poster" id="editposter" class="form-control" />
+     </div>
+     </div>
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Media</label>
+     <div class="col-sm-10">
+
+     <input type="file" name="media" id="editmedia" class="form-control" />
+     </div>
+     </div>
+
+
+           <div class="form-group">
+     <label class="col-sm-2 control-label">Generate Sample</label>
+     <div class="col-sm-10">
+
+     <input type="checkbox" name="sample" id="editsample" class="form-control" checked />
+     </div>
+     </div>
+
+
+<input type="hidden" name="productid" id="editproductid" class="form-control" >
+
+{% csrf_token %}
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+       </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+    <div id="mediaplayer">
+        <audio  id="player" width="320" height="240" type="audio/mp3"></audio>
+    </div>
+</body>
+</html>
