@@ -203,7 +203,41 @@
                                 </div>
 </section>
 
-
+<section class="panel panel-default">
+                                <header class="panel-heading"> Subscriptions <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
+                                <div class="table-responsive">
+                                    <div id="toolbar">
+                                    </div>
+                                    <table class="table table-striped m-b-none"
+                                     data-toggle="table"
+                                     data-pagination="true"
+                                    data-side-pagination="server"
+                                    data-toolbar="#toolbar"
+                                       data-search="true"
+                                       data-show-refresh="true"
+                                       data-show-export="true"
+                                       data-minimum-count-columns="2"
+                                       data-show-pagination-switch="true"
+                                       data-pagination="true"
+                                       data-id-field="id"
+                                        id="subscription">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="id" width="5%">ID</th>
+                                                <th data-field="username" width="7%">Username</th>
+                                                <th data-field="fullname" width="15%">Name</th>
+                                                <th data-field="email" width="7%">Email</th>
+                                                <th data-field="telephone" width="7%">Telephone</th>
+                                                <th data-field="status" width="5%">Status</th>
+                                                <th data-field="renewdate" width="20%">Last Renew Date</th>
+                                                <th data-field="renewdate" width="20%">Next Renew Date</th>
+                                                <th  data-formatter="displayEdit" width="35%"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+</section>
                        
                         </section>
                     </section>
@@ -224,6 +258,7 @@
 
     var $admintable = $('#adminusers');
     var $usertable = $('#users');
+    var $subscriptiontable = $('#subscription');
 	   
     $(function () {
 	var number=0;
@@ -236,6 +271,13 @@
         });
         var options = $usertable.bootstrapTable('getOptions');
         getUserData(options.pageNumber, options.pageSize);
+
+
+        $subscriptiontable.on('page-change.bs.table', function (e, number, size) {
+            getSubsriptionData(number, size);
+        });
+        var options = $subscriptiontable.bootstrapTable('getOptions');
+        getSubsriptionData(options.pageNumber, options.pageSize);
     });
 
 
@@ -245,6 +287,21 @@
 	number=1;
 	}
         $.get('users/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            console.log(res)
+            $usertable.bootstrapTable('load', res);
+        });
+    }
+
+
+
+    function getSubsriptionData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('subscriptions/list', {
             offset: (number - 1) * size,
             limit: size
         }, function (res) {

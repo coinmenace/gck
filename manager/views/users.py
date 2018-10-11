@@ -260,4 +260,17 @@ def resetuserdevice(request,id):
         return HttpResponseRedirect("login")
 
 
-
+def listsubscriptions(request):
+    if request.session.get('isloggedin', False):
+        data={}
+        offset=request.GET['offset']
+        limit=request.GET['limit']
+        pager="LIMIT "+offset+","+limit
+        users=Subscriptions.objects.raw("SELECT  api_user.id as id,firstname,lastname,email,telephone,address1 as address,city,state,country,username,isphoneverified,isemailverified,status,api_user.createdate as createdate from api_user,api_profile WHERE api_user.id=api_profile.uid "+pager)
+        data={}
+        data['total']= Subscriptions.objects.count()
+        data['rows']=usersToJson(users)
+        return JsonResponse(data)
+    else:
+        request.session['isloggedin']=False
+        return HttpResponseRedirect("login")

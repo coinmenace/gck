@@ -70,6 +70,61 @@
 </div>
 <!-- End panel -->
 </section>
+
+
+<section class="panel panel-default">
+<header class="panel-heading font-bold"> Create Content SubCategory</header>
+
+ <div class="panel-body">
+    <form id="create_category_form" action="subcategory/create" class="form-horizontal" method="post">
+
+   <div class="form-group">
+      <label class="col-sm-2 control-label">Categories</label>
+      <div class="col-sm-10">
+      <select name="categoryid" id="categoryid" class="form-control">
+         {% for cat in data.categories %}
+         <option value={{cat.id}}>{{cat.name}}</option>
+        {% endfor %}
+       </select>
+
+       </div>
+       </div>
+
+     <div class="form-group">
+     <label class="col-sm-2 control-label">Name</label>
+     <div class="col-sm-10">
+
+     <input type="text" name="name" id="catname" class="form-control" placeholder="category">
+     </div>
+     </div>
+     {% csrf_token %}
+
+
+
+
+ <div class="form-group">
+      <div class="col-sm-4 col-sm-offset-2">
+       <button type="submit" class="btn btn-primary">Save changes</button>
+
+      </div>
+
+
+
+      </form>
+
+
+
+
+
+
+
+
+</div>
+<!-- End panel -->
+</section>
+
+
+
 <section class="panel panel-default">
 <header class="panel-heading font-bold">Edit Content Category</header>
 
@@ -83,6 +138,7 @@
                                         <thead>
                                             <tr>
                                                 <th  data-field="id" width="5%">ID</th>
+                                                <th  data-field="subcategory"  >SubCategory</th>
                                                  <th  data-field="name"  >Category</th>
                                                  <th  data-formatter="displayCategoryEdit"> </th>
                                             </tr>

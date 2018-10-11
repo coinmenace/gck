@@ -21,6 +21,13 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     createdate = models.DateTimeField('date created')
 
+class SubCategory(models.Model):
+    db_table = 'subcategory'
+    id = models.AutoField(primary_key=True)
+    categoryid = models.IntegerField(default=0)
+    name = models.CharField(max_length=200)
+    createdate = models.DateTimeField('date created')
+
 class Collection(models.Model):
     db_table = 'category'
     id = models.AutoField(primary_key=True)
@@ -98,6 +105,19 @@ class ProductStats(models.Model):
     like = models.IntegerField(default=0)
     listen = models.IntegerField(default=0)
     download = models.IntegerField(default=0)
+
+
+
+
+class Subscriptions(models.Model):
+    db_table = 'subscriptions'
+    id = models.AutoField(primary_key=True)
+    uid = models.IntegerField(default=0)
+    active = models.IntegerField(default=0)
+    lastsubdate = models.DateTimeField('date last subscribed')
+    nextsubdate = models.DateTimeField('date for next subscription')
+
+
 
 class Transactions(models.Model):
     db_table = 'transactions'
@@ -828,11 +848,24 @@ def categoryToJson(c):
     categories=[]
     for cat in c:
         data={}
-        data["id"]=cat.id
-        data["name"]=cat.name
-        data["date"]=cat.createdate
+        data["id"]=cat.subcatid
+        data["name"]=cat.catname
+        data["subcategory"] = cat.subcatname
+        data["date"]=cat.catdate
         categories.append(data)
     return categories
+
+
+def subCategoryToJson(c):
+    subcategories=[]
+    for subcat in c:
+        data={}
+        data["id"]=subcat.id
+        data["categoryid"] = subcat.categoryid
+        data["name"]=subcat.name
+        data["date"]=subcat.createdate
+        subcategories.append(data)
+    return subcategories
 
 def walletToJson(w):
     wallets=[]

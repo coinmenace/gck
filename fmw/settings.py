@@ -108,7 +108,7 @@ WSGI_APPLICATION = 'fmw.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fmw',
+        'NAME': 'fmw_prod',
 		'USER':'root',
 		'PASSWORD':'hy76gdgdDssv43Q',
         'CONN_MAX_AGE':0

@@ -40,6 +40,10 @@ url(r'books/edit', views.index, name='log'),
 
 url(r'books', views.books, name='content'),
 
+
+
+url(r'subscriptions/list', views.listsubscriptions, name='listsubscriptions'),
+
 url(r'users/create', views.createuser, name='createuser'),
 url(r'users/list', views.listusers, name='listusers'),
 url(r'users/delete/(?P<id>\d+)', views.deleteuser, name='deleteuser'),
@@ -53,11 +57,21 @@ url(r'authors/delete/(?P<id>\d+)', views.deleteauthors, name='deleteauthors'),
 url(r'authors/update', views.updateauthor, name='updateauthor'),
 url(r'authors', views.authors, name='authors'),
 
+
+
+url(r'subcategory/create', views.createsubcategory, name='createsubcategory'),
+url(r'subcategory/list', views.listsubcategory, name='listsubcategory'),
+url(r'subcategory/delete/(?P<id>\d+)', views.deletesubcategory, name='deletesubcategory'),
+url(r'subcategory/update', views.updatesubcategory, name='updatesubcategory'),
+
+
 url(r'category/create', views.createcategory, name='createcategory'),
 url(r'category/list', views.listcategory, name='listcategory'),
 url(r'category/delete/(?P<id>\d+)', views.deletecategory, name='deletecategory'),
 url(r'category/update', views.updatecategory, name='updatecategory'),
 url(r'categories', views.index, name='log'),
+
+
 
 
 url(r'media/create', views.uploadcontent, name='uploadcontent'),

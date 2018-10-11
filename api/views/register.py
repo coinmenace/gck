@@ -44,6 +44,7 @@ def registeruser(request):
             user=User.objects.create(username=username,password=password,secret=secret,createdate=timezone.now())
             if user.id!=None:
                 uid=user.id
+                subscription=Subscription.objects.create(uid=uid,active=0,lastsubdate=timezone.now()-86400,nextsubdate=timezone.now()-86400)
                 profile=Profile.objects.create(uid=uid,email=email,telephone=telephone,createdate=timezone.now())
                 wallet=Wallet.objects.create(uid=uid,balance=balance,createdate=timezone.now())
                 data={}
