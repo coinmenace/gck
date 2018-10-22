@@ -266,10 +266,10 @@ def listsubscriptions(request):
         offset=request.GET['offset']
         limit=request.GET['limit']
         pager="LIMIT "+offset+","+limit
-        users=Subscriptions.objects.raw("SELECT  api_user.id as id,firstname,lastname,email,telephone,address1 as address,city,state,country,username,isphoneverified,isemailverified,status,api_user.createdate as createdate from api_user,api_profile WHERE api_user.id=api_profile.uid "+pager)
+        subscriptions=Subscriptions.objects.raw("SELECT  a.id as id,firstname,lastname,email,telephone,address1 as address,city,state,country,username,isphoneverified,isemailverified,status,a.createdate as createdate,active,lastsubdate,nextsubdate from api_user a,api_profile b,api_subscriptions c WHERE a.id=b.uid and a.id=c.uid "+pager)
         data={}
         data['total']= Subscriptions.objects.count()
-        data['rows']=usersToJson(users)
+        data['rows']=subscriptionsToJson(subscriptions)
         return JsonResponse(data)
     else:
         request.session['isloggedin']=False

@@ -228,9 +228,9 @@
                                                 <th data-field="fullname" width="15%">Name</th>
                                                 <th data-field="email" width="7%">Email</th>
                                                 <th data-field="telephone" width="7%">Telephone</th>
-                                                <th data-field="status" width="5%">Status</th>
-                                                <th data-field="renewdate" width="20%">Last Renew Date</th>
-                                                <th data-field="renewdate" width="20%">Next Renew Date</th>
+                                                <th data-field="active" width="5%">Subscription Status</th>
+                                                <th data-field="lastsubdate" width="20%">Last Renew Date</th>
+                                                <th data-field="nextsubdate" width="20%">Next Renew Date</th>
                                                 <th  data-formatter="displayEdit" width="35%"> </th>
                                             </tr>
                                         </thead>
@@ -306,7 +306,7 @@
             limit: size
         }, function (res) {
             console.log(res)
-            $usertable.bootstrapTable('load', res);
+            $subscriptiontable.bootstrapTable('load', res);
         });
     }
 

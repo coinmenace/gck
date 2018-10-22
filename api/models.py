@@ -493,6 +493,37 @@ def usersToJson(u):
         users.append(data)
     return users
 
+
+
+def subscriptionsToJson(u):
+    subscriptions=[]
+    for subscription in u:
+        data={}
+        if subscription.status==0:
+            status="Disabled"
+        else:
+            status="Active"
+        data['id']=subscription.id
+        data['username']=subscription.username
+        data['fullname']=subscription.firstname+" "+subscription.lastname
+        data['email']=subscription.email
+        data['telephone']=subscription.telephone
+        data['email'] = subscription.email
+        data['address'] = subscription.address
+        data['city'] = subscription.city
+        data['state'] = subscription.state
+        data['country'] = subscription.country
+        data['isphoneverified']=subscription.isphoneverified
+        data['isemailverified']=subscription.isemailverified
+        data['status']=status
+        data['active']=subscription.active
+        data['nextsubdate'] = subscription.nextsubdate
+        data['lastsubdate'] = subscription.lastsubdate
+        data['createdate'] = subscription.createdate
+
+        subscriptions.append(data)
+    return subscriptions
+
 def booksToJson(b):
     books=[]
     for book in b:

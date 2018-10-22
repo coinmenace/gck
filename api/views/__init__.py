@@ -16,3 +16,4 @@ from sync import *
 from payment import *
 from voucher import *
 from search import *
+from subscription import *
